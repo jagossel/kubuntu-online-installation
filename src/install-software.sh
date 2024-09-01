@@ -36,7 +36,11 @@ fi
 
 rm -f packages.microsoft.gpg
 
+# Largely based off of OBS Studio's page:
+# https://obsproject.com/download
+add-apt-repository ppa:obsproject/obs-studio
+
 apt-get install -y apt-transport-https
 
 apt-get update
-apt-get install -y firefox code
+apt-get install -y firefox code ffmpeg obs-studio
