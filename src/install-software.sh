@@ -55,3 +55,9 @@ else
 	echo SDR++ did not download, skipping installation.
 	echo === WARNING! ===
 fi
+
+# Perform software update
+apt-get upgrade
+
+# Force restart via KDE Plasma
+qdbus org.kde.Shutdown /Shutdown logoutAndReboot
