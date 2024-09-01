@@ -43,7 +43,7 @@ add-apt-repository -y ppa:obsproject/obs-studio
 apt-get install -y apt-transport-https
 
 apt-get update
-apt-get install -y firefox code ffmpeg obs-studio
+apt-get install -y firefox code ffmpeg obs-studio dotnet-sdk-8.0 doomsday dosbox minetest blender gimp inkscape rtl-sdr fldigi qsstv audacious audacity kdenlive pavucontrol qsynth fluidsynth libreoffice virt-manager
 
 # Download and install SDR++
 wget -O /tmp/sdrpp_ubuntu_noble_amd64.deb https://github.com/AlexandreRouma/SDRPlusPlus/releases/download/nightly/sdrpp_ubuntu_noble_amd64.deb
