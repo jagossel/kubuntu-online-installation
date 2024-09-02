@@ -1,9 +1,16 @@
 #!/bin/bash
 
+apt-get update
+apt-get install -y gpg wget
+
 # Largely based off of Mozilla's page:
 # https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended
 if [ ! -d '/etc/apt/keyrings' ]; then
 	install -d -m 0755 /etc/apt/keyrings
+fi
+
+if [ ! -f '/etc/apt/keyrings/packages.mozilla.org.asc' ]; then
+	wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 fi
 
 if [ ! -f '/etc/apt/keyrings/packages.mozilla.org.asc' ]; then
