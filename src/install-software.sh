@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Need a way to quickly exit out of the script.
+bail() {
+	echo >&2 "$@"
+	exit 1
+}
+
+baseDir=$( dirname "$( readlink -f $0 )" )
+packageListPath="$baseDir/packages.txt"
+
+[ -f $packageListPath ] || bail "Cannot find the package list, $packageListPath."
+
 apt-get update
 apt-get install -y gpg wget
 
@@ -50,7 +61,9 @@ add-apt-repository -y ppa:obsproject/obs-studio
 apt-get install -y apt-transport-https
 
 apt-get update
-apt-get install -y firefox code ffmpeg obs-studio dotnet-sdk-8.0 doomsday dosbox minetest blender gimp inkscape rtl-sdr fldigi qsstv audacious audacity kdenlive pavucontrol qsynth fluidsynth libreoffice virt-manager
+
+packageList="$( grep ".*" $packageListPath|tr '\n' ' ' )"
+apt-get install -y $packageList
 
 # Download and install SDR++
 wget -O /tmp/sdrpp_ubuntu_noble_amd64.deb https://github.com/AlexandreRouma/SDRPlusPlus/releases/download/nightly/sdrpp_ubuntu_noble_amd64.deb
