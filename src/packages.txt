@@ -20,3 +20,5 @@ qsynth
 fluidsynth
 libreoffice
 virt-manager
+nvidia-driver-535
+nvidia-prime
