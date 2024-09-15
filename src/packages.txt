@@ -12,6 +12,7 @@ inkscape
 rtl-sdr
 fldigi
 qsstv
+js8call
 audacious
 audacity
 kdenlive
