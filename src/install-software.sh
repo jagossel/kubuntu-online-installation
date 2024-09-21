@@ -1,7 +1,12 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+	echo >&2 "The profile name is required."
+	exit 1
+fi
+
 base_dir=$( dirname "$( readlink -f $0 )" )
-package_list_path="$base_dir/packages.txt"
+package_list_path="$base_dir/packages.csv"
 
 if [ ! -f $package_list_path ]; then
 	echo >&2 "Cannot find the package list, $package_list_path."
@@ -59,7 +64,7 @@ apt-get install -y apt-transport-https
 
 apt-get update
 
-package_list=$( grep ".*" $package_list_path | tr '\n' ' ' )
+package_list=$( grep -E ".*,($1|\*)" packages.csv | awk -F, '{ print $1 }' | tr '\n' ' ' )
 apt-get install -y $package_list
 
 # Download and install SDR++
