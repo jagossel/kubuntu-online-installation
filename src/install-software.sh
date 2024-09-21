@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# Need a way to quickly exit out of the script.
-bail() {
-	echo >&2 "$@"
+base_dir=$( dirname "$( readlink -f $0 )" )
+package_list_path="$base_dir/packages.txt"
+
+if [ ! -f $package_list_path ]; then
+	echo >&2 "Cannot find the package list, $package_list_path."
 	exit 1
-}
-
-baseDir=$( dirname "$( readlink -f $0 )" )
-packageListPath="$baseDir/packages.txt"
-
-[ -f $packageListPath ] || bail "Cannot find the package list, $packageListPath."
+fi
 
 apt-get update
 apt-get install -y gpg wget
@@ -62,8 +59,8 @@ apt-get install -y apt-transport-https
 
 apt-get update
 
-packageList="$( grep ".*" $packageListPath|tr '\n' ' ' )"
-apt-get install -y $packageList
+package_list=$( grep ".*" $package_list_path | tr '\n' ' ' )
+apt-get install -y $package_list
 
 # Download and install SDR++
 wget -O /tmp/sdrpp_ubuntu_noble_amd64.deb https://github.com/AlexandreRouma/SDRPlusPlus/releases/download/nightly/sdrpp_ubuntu_noble_amd64.deb
@@ -77,7 +74,7 @@ else
 fi
 
 # Perform software update
-apt-get upgrade
+apt-get upgrade -y
 
 # Force restart via KDE Plasma
 qdbus org.kde.Shutdown /Shutdown logoutAndReboot
