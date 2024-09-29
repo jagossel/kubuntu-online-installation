@@ -41,7 +41,7 @@ if [ -f "$post_install_scripts_path" ]; then
 		post_install_script_filename=$( echo "$record" | awk -F, '{ print $1 }' )
 		post_install_script_path="$base_dir/post-install-scripts/$post_install_script_filename"
 		if [ -f "$post_install_script_path" ]; then
-			bash $post_install_script_path
+			bash $post_install_script_path $1
 		else
 			echo "Skipping over $post_install_script_path: file not found."
 		fi
